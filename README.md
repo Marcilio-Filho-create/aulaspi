@@ -1,2 +1,2 @@
 # eventos
- Aprendendo PI
+ Aprendendo Programação para a Internet
