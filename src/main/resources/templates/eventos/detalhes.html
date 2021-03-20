@@ -35,6 +35,7 @@
 					<div class="card-content">
 						<span class="card-title">Adicionar Convidado</span>
 						<form th:action="@{/eventos/{idEvento}(idEvento=${evento.id})}" method="post" th:object="${convidado}">
+							<p th:if="${mensagem}" th:text="${mensagem}"></p>
 							<div>
 								<input type="hidden" th:field="*{id}" readonly="readonly">
 							</div>
