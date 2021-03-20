@@ -74,10 +74,13 @@ public class EventosController {
 	}
 	
 	@PostMapping("/{idEvento}")
-	public String salvarConvidado(@PathVariable Long idEvento, Convidado convidado) {
+	public String salvarConvidado(@PathVariable Long idEvento, Convidado convidado/*, BindingResult result*/) {
 		
 		System.out.println("Id do evento: " + idEvento);
 		System.out.println(convidado);
+		/*if(result.hasErrors()) {
+			return detalhar();
+		}*/
 		
 		Optional<Evento> opt = er.findById(idEvento);
 		if(opt.isEmpty()) {
