@@ -4,12 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
+
+import javax.validation.Valid;
 
 import ifrn.pi.eventos.models.Convidado;
 import ifrn.pi.eventos.models.Evento;
@@ -31,7 +34,12 @@ public class EventosController {
 	}
 
 	@PostMapping
-	public String salvar(Evento evento) {
+	public String salvar(@Valid Evento evento, BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return form(evento);
+		}
+		
 		System.out.println(evento);
 		er.save(evento);
 		return "redirect:/eventos";
@@ -66,10 +74,13 @@ public class EventosController {
 	}
 	
 	@PostMapping("/{idEvento}")
-	public String salvarConvidado(@PathVariable Long idEvento, Convidado convidado) {
+	public String salvarConvidado(@PathVariable Long idEvento, Convidado convidado/*, BindingResult result*/) {
 		
 		System.out.println("Id do evento: " + idEvento);
 		System.out.println(convidado);
+		/*if(result.hasErrors()) {
+			return detalhar();
+		}*/
 		
 		Optional<Evento> opt = er.findById(idEvento);
 		if(opt.isEmpty()) {
